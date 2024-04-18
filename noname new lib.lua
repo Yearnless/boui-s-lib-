@@ -41,7 +41,7 @@ local utility = {}
 
 do
 
-    --utility.vozoid_tween = loadstring(game:HttpGet("https://raw.githubusercontent.com/vozoid/utility/main/Tween.lua"))() <<< unused
+    --utility.vozoid_tween = loadstring(game:HttpGet("https://raw.githubusercontent.com/Yearnless/boui-s-lib-/main/vozoidtween.lua"))() <<< unused
 
     -- // 24 december 2022: added groups to make my life easier
 
