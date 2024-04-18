@@ -39,7 +39,7 @@ local utility = {}
 
 do
 
-    utility.vozoid_tween = loadstring(game:HttpGet("https://raw.githubusercontent.com/Yearnless/boui-s-lib-/main/vozoidtween.lua"))()
+    utility.vozoid_tween = loadstring(game:HttpGet("https://raw.githubusercontent.com/EXFTB/VozoidFixed/63c4218e0a0c12c06ebba57ec0196be46297cf57/Yep"))()
 
     -- // utility:Draw is super pasted and skidded and shitcoded even i cant read it even tho i coded it
     -- // xyl pls dont ban me for this code 😭😢
