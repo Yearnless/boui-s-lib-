@@ -1,4 +1,5 @@
--- // fuck off
+-- // boui moment!!!
+-- // inspired by splix
 
 local uis = game:GetService("UserInputService")
 local rs = game:GetService("RunService")
@@ -17,7 +18,7 @@ local v2zero = Vector2.zero
 
 local c3rgb, c3hsv = Color3.fromRGB, Color3.fromHSV
 
--- // library
+-- // library!!!
 
 local library = {
     drawings = {{}, {}},
@@ -30,9 +31,6 @@ local library = {
     loaded = false,
 }
 
-makefolder("noname.hack")
-makefolder("noname.hack/assets")
-
 -- // utility
 
 local utility = {}
@@ -41,7 +39,10 @@ local utility = {}
 
 do
 
-    --utility.vozoid_tween = loadstring(game:HttpGet("https://raw.githubusercontent.com/Yearnless/boui-s-lib-/main/vozoidtween.lua"))() <<< unused
+    utility.vozoid_tween = loadstring(game:HttpGet("https://raw.githubusercontent.com/Yearnless/boui-s-lib-/main/vozoidtween.lua"))()
+
+    -- // utility:Draw is super pasted and skidded and shitcoded even i cant read it even tho i coded it
+    -- // xyl pls dont ban me for this code 😭😢
 
     -- // 24 december 2022: added groups to make my life easier
 
@@ -251,13 +252,8 @@ do
         return data
     end
 
-    function utility:Image(object, link, name)
-        local data = library.preloaded_images[link]
-
-        if not data then
-            data = game:HttpGet(link)
-        end
-
+    function utility:Image(object, link)
+        local data = library.preloaded_images[link] or game:HttpGet(link)
         if library.preloaded_images[link] == nil then
             library.preloaded_images[link] = data
         end
@@ -293,8 +289,10 @@ do
         return t3
     end
 
+    -- // xyl thanks for the method cause im npc
+
     function utility:GetPlexSize(text)
-        return #text * 6
+        return #text * 7
     end
 
     function utility:CopyTable(tbl)
@@ -316,12 +314,13 @@ do
         end
     end
 
+    -- // totally not pasted from splix (100%)
     -- //        oh no im a paster
 
     utility.short_keybind_names = {["MouseButton1"] = "MB1", ["MouseButton2"] = "MB2", ["MouseButton3"] = "MB3", ["Insert"] = "INS", ["LeftAlt"] = "LALT", ["LeftControl"] = "LC", ["LeftShift"] = "LS", ["RightAlt"] = "RALT", ["RightControl"] = "RC", ["RightShift"] = "RS", ["CapsLock"] = "CAPS", ["Return"] = "RET", ["Backspace"] = "BSP"}
 end
 
-function library.New(self, info, theme)
+function library.Window(self, info, theme)
 
     theme = theme or {
         accent = c3rgb(255, 0, 0),
@@ -365,12 +364,11 @@ function library.New(self, info, theme)
         end
     end)
 
-    local main_frame_outline = utility:Draw("Square", v2new(0, 0), {
-        Size = main_frame.Size + v2new(1, 1),
+    local main_frame_outline = utility:Draw("Square", v2new(-1, -1), {
+        Size = main_frame.Size + v2new(2, 2),
         Color = window.theme.outline,
         Group = "outline",
         Filled = false,
-        Thickness = 2,
         Parent = main_frame
     })
 
@@ -577,10 +575,6 @@ function library.New(self, info, theme)
             local side = info.side or "left" side = tostring(side):lower()
             local render_non_attached = info.rna or info.render_non_attached or false
 
-            -- // finally, new code;
-
-            local autofill = info.autofill or false;
-
             -- // side check
 
             if side ~= "left" and side ~= "right" then
@@ -691,7 +685,7 @@ function library.New(self, info, theme)
 
                 local tside = tab.sides[self.side == "left" and 1 or 2]
 
-                section_frame.Size = v2new(self.rna and 228 or tabs_frame.Size.X / 2 - 12, table.find(tside, self) == #tside and autofill and tabs_frame.Size.Y - (section_frame.GetOffset().Y+5) or self.scale > 0 and self.scale or 10)
+                section_frame.Size = v2new(self.rna and 228 or tabs_frame.Size.X / 2 - 12, table.find(tside, self) == #tside and tabs_frame.Size.Y - (section_frame.GetOffset().Y+5) or self.scale > 0 and self.scale or 10)
                 section_inline.Size = section_frame.Size + v2new(2, 2)
                 section_outline.Size = section_inline.Size + v2new(2, 2)
                 section_accent2.Size = v2new(section_frame.Size.X - (11 + (#name * 7)), 2)
@@ -1467,7 +1461,7 @@ function library.New(self, info, theme)
                 end
 
                 utility:Connect(uis.InputBegan, function(input)
-                    if input.UserInputType == Enum.UserInputType.MouseButton1 and main_frame.Visible and (tab.on or table.find(window.rna, section)) and not window:FakeRealMouseFuckingImAloneGoingToKillMyselfWithKnife(section) and utility:MouseOverPosition({section_frame.Position + v2new(0, button_frame.GetOffset().Y), section_frame.Position + v2new(section_frame.Size.X, button_frame.GetOffset().Y + 18)}) then
+                    if input.UserInputType == Enum.UserInputType.MouseButton1 and main_frame.Visible and tab.on and not window:FakeRealMouseFuckingImAloneGoingToKillMyselfWithKnife(section) and utility:MouseOverPosition({section_frame.Position + v2new(0, button_frame.GetOffset().Y), section_frame.Position + v2new(section_frame.Size.X, button_frame.GetOffset().Y + 18)}) then
                         button.callback()
                     end
                 end)
@@ -2406,32 +2400,26 @@ function library.New(self, info, theme)
     end
 
     function window.FakeRealMouseFuckingImAloneGoingToKillMyselfWithKnife(self, section)
-        local onRNA = false
-
-        if not table.find(self.rna, section) then
-
-            for i, v in pairs(self.rna) do
-                if onRNA then break end
-
-                onRNA = utility:MouseOverDrawing(v.instances[1])
-            end
-        end
-
-        local onType, isOn = nil, false
-
         if self.shit.dropdown ~= nil and #self.shit.dropdown.instances > 1 then
-            onType, isOn = "dd", utility:MouseOverDrawing(self.shit.dropdown.instances[1])
+            return utility:MouseOverDrawing(self.shit.dropdown.instances[1])
         elseif self.shit.keybind ~= nil and #self.shit.keybind.minst > 1 then
-            onType, isOn = "km", utility:MouseOverDrawing(self.shit.keybind.minst[1])
+            return utility:MouseOverDrawing(self.shit.keybind.minst[1])
         elseif self.shit.colorpicker ~= nil and #self.shit.colorpicker.instances > 1 then
-            onType, isOn = "cp", utility:MouseOverDrawing(self.shit.colorpicker.instances[1])
+            return utility:MouseOverDrawing(self.shit.colorpicker.instances[1])
         end
 
-        if onType and not isOn then
-            isOn = onRNA
+        if not table.find(window.rna, section) then
+            local on = false
+
+            for i, v in pairs(window.rna) do
+                if on then break end
+
+                on = utility:MouseOverDrawing(v.instances[1])
+            end
+
+            return on
         end
-        
-        return isOn
+        return false
     end
 
     function window.NewTheme(self, theme)
@@ -3067,7 +3055,6 @@ function library.New(self, info, theme)
 
             local slider_section = self.tabs[1]:Section({name = "Animation", rna = true})
             local anim_enabled = slider_section:Toggle({name = "Enabled", pointer = ""})
-            local anim_style = slider_section:Dropdown({name = "Style", options = {"Linear", "Quadratic", "Cubic", "Elastic"}})
             local anim_speed = slider_section:Slider({name = "Speed", min = 0.1, def = 1, max = 15, dec = 10, pointer = ""})
             local anim_min = slider_section:Slider({name = "Minimum value", min = 1, max = 2, pointer = ""})
             local anim_max = slider_section:Slider({name = "Maximum value", min = 1, max = 2, pointer = ""})
@@ -3078,7 +3065,7 @@ function library.New(self, info, theme)
             local slider_flag = nil
 
             utility:Connect(uis.InputBegan, function(input)
-                if self.frame.Visible then
+                if self.frame.Visible and not window:FakeRealMouseFuckingImAloneGoingToKillMyselfWithKnife(slider_section) then
                     if input.UserInputType == Enum.UserInputType.MouseButton2 then
                         local slider_visible = false
 
@@ -3109,13 +3096,11 @@ function library.New(self, info, theme)
                                         local settings = self.saved_settings[slider.pointer]
 
                                         anim_enabled:Set(settings.enabled)
-                                        anim_style:Set(settings.style or "Linear")
                                         anim_min:Set(settings.min)
                                         anim_max:Set(settings.max)
                                         anim_speed:Set(settings.speed)
                                     else
                                         anim_enabled:Set(false)
-                                        anim_style:Set("Linear")
                                         anim_min:Set(slider.min)
                                         anim_max:Set(slider.max)
                                         anim_speed:Set(1)
@@ -3126,8 +3111,7 @@ function library.New(self, info, theme)
                                             max = slider.max,
                                             speed = 1,
                                             dec = slider.dec,
-                                            random_angle_offset = math.random(-720, 720),
-                                            style = "Linear",
+                                            random_angle_offset = math.random(-720, 720)
                                         }
                                     end
                                 end
@@ -3162,28 +3146,19 @@ function library.New(self, info, theme)
                         max = anim_max:Get(),
                         speed = anim_speed:Get(),
                         dec = library.pointers[slider_flag].dec,
-                        random_angle_offset = self.saved_settings[slider_flag].random_angle_offset,
-                        style = anim_style:Get()
+                        random_angle_offset = self.saved_settings[slider_flag].random_angle_offset
                     }
                 end
 
                 for i, v in pairs(self.saved_settings) do
                     if v.enabled then
-                        local cos_tick = (1 + math.cos(tick()*v.speed + math.rad(v.random_angle_offset))) / 2
+                        local sin_tick = 1 + math.sin(math.rad((tick()*50*v.speed)) + math.rad(v.random_angle_offset))
 
-                        if tostring(cos_tick):sub(1, 4) == "0.99" then
-                            cos_tick = 1
+                        if tostring(sin_tick):sub(1, 4) == "1.99" then
+                            sin_tick = 2
                         end
 
-                        if v.style == "Quadratic" then
-                            cos_tick = cos_tick^2
-                        elseif v.style == "Cubic" then
-                            cos_tick = cos_tick^3
-                        elseif v.style == "Elastic" then
-                            cos_tick = cos_tick == 0 and 0 or cos_tick == 1 and 1 or -math.pow(2, 10 * (cos_tick - 1)) * math.sin((cos_tick - 1.1) * 5 * math.pi)
-                        end
-
-                        library.pointers[i]:Set(math.clamp(math.floor(v.min + (v.max - v.min) * cos_tick * v.dec) / v.dec, v.min, v.max))
+                        library.pointers[i]:Set(math.clamp(math.floor((v.min + (((v.max - v.min)/2) * sin_tick)) * v.dec) / v.dec, v.min, v.max))
                     end
                 end
             end)
@@ -3236,4 +3211,4 @@ function library.New(self, info, theme)
     return window
 end
 
-return library, utility;
+return library, utility
